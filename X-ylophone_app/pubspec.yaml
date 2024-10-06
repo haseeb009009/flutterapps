@@ -1,0 +1,26 @@
+name: xylophone_app
+description: A custom xylophone app for teaching kids.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  audioplayers: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/note1.mp3
+    - assets/note2.mp3
+    - assets/note3.mp3
+    - assets/note4.mp3
+    - assets/note5.mp3
+    - assets/note6.mp3
+    - assets/note7.mp3
