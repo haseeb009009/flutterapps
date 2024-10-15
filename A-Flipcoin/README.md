@@ -1,1 +1,1 @@
-![Alt text](/Readme/coinflip.png)
+(Readme/coinflip.png)
