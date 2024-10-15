@@ -1,1 +1,1 @@
-![Alt text](Readme/spinbottle.png)
+![Alt text](readme/spinbottle.png)
