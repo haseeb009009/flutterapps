@@ -1,1 +1,1 @@
- ![image](assets\coin3.gif)
+ ![image](assets/coin3.gif)
