@@ -1,0 +1,51 @@
+name: dicee
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/red-dice-1.png
+    - assets/red-dice-0.png
+    - assets/red-dice-2.png
+    - assets/red-dice-3.png
+    - assets/red-dice-4.png
+    - assets/red-dice-5.png
+    - assets/red-dice-6.png
+    - assets/green-dice-0.png  
+    - assets/green-dice-1.png
+    - assets/green-dice-2.png
+    - assets/green-dice-3.png
+    - assets/green-dice-4.png
+    - assets/green-dice-5.png
+    - assets/green-dice-6.png
+    - assets/blue-dice-1.png
+    - assets/blue-dice-2.png
+    - assets/blue-dice-3.png
+    - assets/blue-dice-4.png 
+    - assets/blue-dice-5.png
+    - assets/blue-dice-6.png
+    - assets/blue-dice-0.png
+    - assets/yellow-dice-1.png
+    - assets/yellow-dice-2.png
+    - assets/yellow-dice-3.png
+    - assets/yellow-dice-4.png
+    - assets/yellow-dice-5.png
+    - assets/yellow-dice-6.png
+    - assets/yellow-dice-0.png
