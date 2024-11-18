@@ -6,5 +6,6 @@ void main() {
   runApp(const MaterialApp(
     title: 'Climate',
     home: Climate(),
+    debugShowCheckedModeBanner: false,
   ));
 }
