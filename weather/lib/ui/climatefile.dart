@@ -11,9 +11,71 @@ class Climate extends StatefulWidget {
 }
 
 class _ClimateState extends State<Climate> {
-  void showstuff() async {
-    Map data = await getWeather(utils.apiId, utils.defaultCity);
-    print(data.toString());
+  String cityName = utils.defaultCity;
+
+  // Function to fetch weather data
+  Future<Map<String, dynamic>> getWeather(String appId, String city) async {
+    String apiUrl =
+        'http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId&units=imperial';
+    final response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load weather data');
+    }
+  }
+
+  // Function to navigate to the "Change City" screen
+  Future<void> _goToNextScreen(BuildContext context) async {
+    var results = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const ChangeCity()),
+    );
+
+    if (results != null && results.containsKey('city')) {
+      setState(() {
+        cityName = results['city'];
+      });
+    }
+  }
+
+  // Update widget to display temperature and weather details
+  Widget updateTempWidget(String city) {
+    return FutureBuilder(
+      future: getWeather(utils.apiId, city),
+      builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasData) {
+          Map content = snapshot.data!;
+          return Container(
+            margin: const EdgeInsets.fromLTRB(30.0, 250.0, 0.0, 0.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${content['main']['temp']}°F",
+                  style: tempStyle(),
+                ),
+                Text(
+                  "Humidity: ${content['main']['humidity']}%\n"
+                  "Min: ${content['main']['temp_min']}°F\n"
+                  "Max: ${content['main']['temp_max']}°F",
+                  style: extraData(),
+                ),
+              ],
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text(
+              "Could not fetch weather data",
+              style: TextStyle(color: Colors.white, fontSize: 20.0),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -25,88 +87,97 @@ class _ClimateState extends State<Climate> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.menu),
-            // ignore: avoid_print
-            onPressed: () => showstuff(),
+            onPressed: () => _goToNextScreen(context),
           ),
         ],
       ),
-      body: Stack(children: [
-        const Center(
-          child: Image(
-            image: AssetImage('images/umbrella.png'),
-            height: 1200.0,
-            width: 600.0,
-            fit: BoxFit.fill,
+      body: Stack(
+        children: [
+          const Center(
+            child: Image(
+              image: AssetImage('images/umbrella.png'),
+              height: 1200.0,
+              width: 600.0,
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-        Container(
-          alignment: Alignment.topRight,
-          margin: const EdgeInsets.fromLTRB(0.0, 10.9, 20.9, 0.0),
-          child: Text(
-            'vehari',
-            style: cityStyle(),
+          Container(
+            alignment: Alignment.topRight,
+            margin: const EdgeInsets.fromLTRB(0.0, 10.9, 20.9, 0.0),
+            child: Text(
+              cityName,
+              style: cityStyle(),
+            ),
           ),
-        ),
-        const Center(
-          child: Image(
-            image: AssetImage('images/light_rain.png'),
+          const Center(
+            child: Image(
+              image: AssetImage('images/light_rain.png'),
+            ),
           ),
-        ),
-        Container(
-          alignment: Alignment.centerLeft,
-          child: updateTempWidget('String city'),
-        ),
-      ]),
+          Container(
+            alignment: Alignment.centerLeft,
+            child: updateTempWidget(cityName),
+          ),
+        ],
+      ),
     );
-  }
-
-  Future<Map> getWeather(String appId, String city) async {
-    String apiUrl =
-        'http://api.openweathermap.org/data/2.5/weather?q=$city&appid=${utils.apiId}&units=imperial';
-    http.Response response = await http.get(apiUrl as Uri);
-    return json.decode(response.body);
-  }
-
-  Widget updateTempWidget(String city) {
-    return FutureBuilder(
-        future:
-            getWeather(utils.apiId, city == null ? utils.defaultCity : city),
-        builder: (BuildContext context, AsyncSnapshot<Map> snapshot) {
-          if (snapshot.hasData) {
-            Map? context = snapshot.data;
-            return Container(
-              margin: const EdgeInsets.fromLTRB(30.0, 250.0, 0.0, 0.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ListTile(
-                    title: Text(
-                      content['main']['temp'].toString() + " F",
-                      style: TextStyle(
-                          fontStyle: FontStyle.normal,
-                          fontSize: 49.9,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    subtitle: ListTile(
-                      title: Text(
-                        "Humidity: ${content['main']['humidity'].toString()}\n"
-                        "Min: ${content['main']['temp_min'].toString()}\n"
-                        "Max: ${content['main']['temp_max'].toString()}\n",
-                        style: extraData(),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else {
-            return Container();
-          }
-        });
   }
 }
 
+class ChangeCity extends StatelessWidget {
+  const ChangeCity({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    TextEditingController cityFieldController = TextEditingController();
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: const Text('Change City'),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          Center(
+            child: Image.asset(
+              'images/white_snow.png',
+              width: 600.0,
+              height: 1200.0,
+              fit: BoxFit.fill,
+            ),
+          ),
+          ListView(
+            children: [
+              ListTile(
+                title: TextField(
+                  controller: cityFieldController,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter City',
+                  ),
+                  keyboardType: TextInputType.text,
+                ),
+              ),
+              ListTile(
+                title: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, {'city': cityFieldController.text});
+                  },
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                  child: const Text(
+                    "Get Weather",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Text styles
 TextStyle cityStyle() {
   return const TextStyle(
     color: Colors.white,
