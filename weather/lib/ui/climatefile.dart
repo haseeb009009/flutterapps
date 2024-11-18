@@ -38,16 +38,38 @@ class _ClimateState extends State<Climate> {
               'vehari',
               style: cityStyle(),
             ),
-          )
+          ),
+          const Center(
+            child: Image(
+              image: AssetImage('images/light_rain1.png'),
+            ),
+          ),
+          Container(
+           // margin: const EdgeInsets.fromLTRB(30.0, 590.0, 0.0, 0.0),
+            child: Text(
+              '50.32F',
+              style: tempStyle(),
+            ),
+          ),
         ],
       ),
     );
   }
 }
+
 TextStyle cityStyle() {
   return const TextStyle(
     color: Colors.white,
     fontSize: 22.9,
     fontStyle: FontStyle.italic,
+  );
+}
+
+TextStyle tempStyle() {
+  return const TextStyle(
+    color: Colors.white,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.w500,
+    fontSize: 49.9,  
   );
 }
