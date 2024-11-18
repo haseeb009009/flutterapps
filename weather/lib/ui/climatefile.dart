@@ -17,6 +17,7 @@ class _ClimateState extends State<Climate> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.menu),
+            // ignore: avoid_print
             onPressed: () => print('clicked'),
           ),
         ],
@@ -41,11 +42,11 @@ class _ClimateState extends State<Climate> {
           ),
           const Center(
             child: Image(
-              image: AssetImage('images/light_rain1.png'),
+              image: AssetImage('images/light_rain.png'),
             ),
           ),
           Container(
-           // margin: const EdgeInsets.fromLTRB(30.0, 590.0, 0.0, 0.0),
+            alignment: Alignment.centerLeft,
             child: Text(
               '50.32F',
               style: tempStyle(),
@@ -70,6 +71,6 @@ TextStyle tempStyle() {
     color: Colors.white,
     fontStyle: FontStyle.normal,
     fontWeight: FontWeight.w500,
-    fontSize: 49.9,  
+    fontSize: 49.9,
   );
 }
