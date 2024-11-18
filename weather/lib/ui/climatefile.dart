@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class Climate extends StatefulWidget {
   const Climate({super.key});
 
@@ -9,6 +10,17 @@ class Climate extends StatefulWidget {
 class _ClimateState extends State<Climate> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ClimateApp'),
+        backgroundColor: Colors.red,
+        actions: <widget>[
+          IconButton(
+            icon: Icon(icon.menu),
+            onPressed: () => print('clicked'),
+          ),
+        ],
+      ),
+    );
   }
 }
