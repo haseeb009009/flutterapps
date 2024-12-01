@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "569733014094",
+    "project_id": "simpletaskapp-231f3",
+    "storage_bucket": "simpletaskapp-231f3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569733014094:android:38afb617df7b2b879d191f",
+        "android_client_info": {
+          "package_name": "com.example.simple"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG4SwbpKl_2Mi-tM8N8Z3CRnr1hEUZLeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:569733014094:android:ebb1d8a6fd8c7ff89d191f",
+        "android_client_info": {
+          "package_name": "com.example.simple_task_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG4SwbpKl_2Mi-tM8N8Z3CRnr1hEUZLeU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -13,7 +13,6 @@ class Climate extends StatefulWidget {
 class _ClimateState extends State<Climate> {
   String cityName = utils.defaultCity;
 
-  // Function to fetch weather data
   Future<Map<String, dynamic>> getWeather(String appId, String city) async {
     String apiUrl =
         'http://api.openweathermap.org/data/2.5/weather?q=$city&appid=$appId&units=imperial';
@@ -25,7 +24,6 @@ class _ClimateState extends State<Climate> {
     }
   }
 
-  // Function to navigate to the "Change City" screen
   Future<void> _goToNextScreen(BuildContext context) async {
     var results = await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const ChangeCity()),
@@ -38,7 +36,6 @@ class _ClimateState extends State<Climate> {
     }
   }
 
-  // Update widget to display temperature and weather details
   Widget updateTempWidget(String city) {
     return FutureBuilder(
       future: getWeather(utils.apiId, city),
@@ -177,7 +174,6 @@ class ChangeCity extends StatelessWidget {
   }
 }
 
-// Text styles
 TextStyle cityStyle() {
   return const TextStyle(
     color: Colors.white,
