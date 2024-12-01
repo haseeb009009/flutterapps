@@ -1,6 +1,12 @@
 # weather
 
 A new Flutter project.
+<p align="center">
+  <img src="images/4.jpg" alt="Image 4" width="200">
+  <img src="images/3.jpg" alt="Image 3" width="200">
+  <img src="images/2.jpg" alt="Image 2" width="200">
+  <img src="images/1.gif" alt="GIF 1" width="300">
+</p>
 
 ## Getting Started
 
