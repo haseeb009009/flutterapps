@@ -25,6 +25,20 @@ class _ClimateState extends State<Climate> {
     }
   }
 
+  String getWeatherEmoji(String condition) {
+    if (condition.contains("clear")) {
+      return "☀️"; // Sunny
+    } else if (condition.contains("clouds")) {
+      return "☁️"; // Cloudy
+    } else if (condition.contains("rain")) {
+      return "🌧️"; // Rainy
+    } else if (condition.contains("snow")) {
+      return "❄️"; // Snowy
+    } else {
+      return "🌈"; // Default
+    }
+  }
+
   List<Map<String, dynamic>> generateHourlyData(double baseTemp) {
     final random = Random();
     return List.generate(7, (index) {
@@ -37,13 +51,25 @@ class _ClimateState extends State<Climate> {
 
   List<Map<String, dynamic>> generateDailyData() {
     final random = Random();
+    final weekDays = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+    final conditions = ["clear", "clouds", "rain", "snow"];
     return List.generate(7, (index) {
       final high = 20 + random.nextInt(15);
       final low = 10 + random.nextInt(10);
+      final condition = conditions[random.nextInt(conditions.length)];
       return {
-        "day": "Day ${index + 1}",
+        "day": weekDays[index % weekDays.length],
         "high": high,
         "low": low,
+        "condition": condition,
       };
     });
   }
@@ -69,6 +95,13 @@ class _ClimateState extends State<Climate> {
               Center(
                 child: Column(
                   children: [
+                    Text(
+                      getWeatherEmoji(content['weather'][0]['description']
+                          .toString()
+                          .toLowerCase()),
+                      style: const TextStyle(fontSize: 50), // Emoji size
+                    ),
+                    const SizedBox(height: 10),
                     Text(
                       "${currentTemp.toStringAsFixed(0)}°C",
                       style: const TextStyle(
@@ -124,7 +157,10 @@ class _ClimateState extends State<Climate> {
                             hourData["hour"],
                             style: const TextStyle(color: Colors.white),
                           ),
-                          const Icon(Icons.wb_sunny, color: Colors.yellow),
+                          Text(
+                            getWeatherEmoji("clear"), // Mocked for hourly
+                            style: const TextStyle(fontSize: 20),
+                          ),
                           Text(
                             "${hourData["temp"]}°C",
                             style: const TextStyle(color: Colors.white),
@@ -163,8 +199,10 @@ class _ClimateState extends State<Climate> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ListTile(
-                          leading:
-                              const Icon(Icons.wb_sunny, color: Colors.yellow),
+                          leading: Text(
+                            getWeatherEmoji(dayData["condition"] ?? "clear"),
+                            style: const TextStyle(fontSize: 30),
+                          ),
                           title: Text(
                             dayData["day"],
                             style: const TextStyle(
@@ -199,6 +237,7 @@ class _ClimateState extends State<Climate> {
     );
   }
 
+//////////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -255,6 +294,7 @@ class _ClimateState extends State<Climate> {
   }
 }
 
+//////
 class ChangeCity extends StatelessWidget {
   const ChangeCity({super.key});
   @override
