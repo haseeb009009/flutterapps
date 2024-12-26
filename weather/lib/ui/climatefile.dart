@@ -35,7 +35,7 @@ class _ClimateState extends State<Climate> {
     } else if (condition.contains("snow")) {
       return "❄️"; // Snowy
     } else {
-      return "🌈"; // Default
+      return "☀️"; // Default
     }
   }
 
@@ -266,11 +266,12 @@ class _ClimateState extends State<Climate> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () async {
+                    GestureDetector(
+                      onTap: () async {
                         var results = await Navigator.of(context).push(
                           MaterialPageRoute(
-                              builder: (context) => const ChangeCity()),
+                            builder: (context) => const ChangeCity(),
+                          ),
                         );
                         if (results != null && results.containsKey('city')) {
                           setState(() {
@@ -278,8 +279,23 @@ class _ClimateState extends State<Climate> {
                           });
                         }
                       },
-                      icon:
-                          const Icon(Icons.add, color: Colors.white, size: 30),
+                      child: const Row(
+                        children: [
+                          Text(
+                            "Enter City",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                          SizedBox(width: 5),
+                          Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
