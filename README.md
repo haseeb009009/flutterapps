@@ -2,7 +2,7 @@ contains beginner level flutter apps
 # Screenshots
 
 ### A-SpinBottle
-![Spin Bottle](A-SpinBottlereadme/spinbottle.png)
+![Spin Bottle](A-SpinBottle/readme/spinbottle.png)
 
 ### A-calculator
 ![Calculator](A-calculator/readme/calculator.png)
